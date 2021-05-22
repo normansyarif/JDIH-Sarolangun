@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, SafeAreaView, ScrollView, StatusBar, TouchableOpacity, ActivityIndicator } from 'react-native'
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { Alert, BackHandler, View, Text, SafeAreaView, ScrollView, StatusBar, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native'
+import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 
 import Axios from 'axios';
 import values from '../values';
@@ -22,6 +22,7 @@ const Home = (props) => {
     const navigation = useNavigation();
     const routes = values.routes;
 
+    // didMount
     useEffect(() => {
         // Carousel
         Axios.get(routes.host + routes.carousel)
@@ -54,7 +55,31 @@ const Home = (props) => {
             .catch(err => {
                 alert('Error: ' + err);
             })
+
     }, [])
+
+    // willFocus
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            BackHandler.addEventListener('hardwareBackPress', () => {
+                Alert.alert(
+                    'Keluar Aplikasi',
+                    'Anda ingin keluar aplikasi?', [{
+                        text: 'Batal',
+                        style: 'cancel'
+                    }, {
+                        text: 'Ya',
+                        onPress: () => BackHandler.exitApp()
+                    },], {
+                    cancelable: false
+                }
+                )
+                return true;
+            });
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <SafeAreaView >
@@ -62,7 +87,7 @@ const Home = (props) => {
             <ScrollView>
                 <View>
                     {carouselData.length > 0 && <Carousel data={carouselData} />}
-                    
+
                     <View style={{ marginTop: 40, paddingLeft: 30, paddingRight: 30, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <MenuItem url={routes.host + routes.perda} title="Peraturan Daerah" color="#F6A752" logo={Paper} />
                         <MenuItem url={routes.host + routes.perbup} title="Peraturan Bupati" color="#50CDFF" logo={Tie} />

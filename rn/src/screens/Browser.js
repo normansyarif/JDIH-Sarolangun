@@ -13,6 +13,7 @@ const Browser = (props) => {
     const [canGoBack, setCanGoBack] = useState(false)
     const webviewRef = useRef(null);
 
+    // didMount
     useEffect(() => {
         navigation.setOptions({
             headerTitle: headerTitle
@@ -20,29 +21,17 @@ const Browser = (props) => {
 
     }, []);
 
+    // didUpdate
     useEffect(() => {
-
         BackHandler.addEventListener('hardwareBackPress', () => {
             if (canGoBack) {
                 webviewRef.current.goBack();
             }
             else {
-                navigation.goBack(null)
+                navigation.goBack()
             }
             return true;
         });
-
-        return () => {
-            BackHandler.addEventListener('hardwareBackPress', () => {
-                if (canGoBack) {
-                    webviewRef.current.goBack();
-                }
-                else {
-                    navigation.goBack(null)
-                }
-                return true;
-            });
-        }
     }, [canGoBack]);
 
     return (

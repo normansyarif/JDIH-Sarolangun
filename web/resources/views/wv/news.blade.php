@@ -38,6 +38,17 @@ date_default_timezone_set("Asia/Jakarta");
             </div>
         </div>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pulltorefreshjs/0.1.22/index.umd.min.js" integrity="sha512-djmgTiVR15A/7fON+ojDzFYrRsfVkzQZu07ZVb0zLC1OhA2iISP39Lzs05GqSKF0vPjkLzL5hBC+am6po7dKpA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        const ptr = PullToRefresh.init({
+          mainElement: 'body',
+          onRefresh() {
+            window.location.reload();
+          }
+        });
+    </script>
 
 
 </body>

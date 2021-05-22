@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, SafeAreaView, ScrollView, StatusBar, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
+import {BackHandler, View, SafeAreaView, ScrollView, StatusBar, ActivityIndicator } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import values from '../values';
@@ -39,6 +39,11 @@ const NewsList = (props) => {
             .catch(err => {
                 alert('Error: ' + err);
             })
+
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            navigation.goBack()
+            return true;
+        });
     }, []);
 
     return (
@@ -47,8 +52,6 @@ const NewsList = (props) => {
             <ScrollView>
                 <View>
                     <View>
-
-                        {loading && <ActivityIndicator style={styles.loading} size="large" color="#50CDFF" />}
 
                         {newsItem.map((item) => {
                             return (
@@ -59,6 +62,8 @@ const NewsList = (props) => {
                             )
                         })}
 
+                        {loading && <ActivityIndicator style={{ marginTop: 100 }} size="large" color="#50CDFF" />}
+
                     </View>
                 </View>
             </ScrollView>
@@ -66,18 +71,6 @@ const NewsList = (props) => {
 
     )
 }
-
-const styles = StyleSheet.create({
-    loading: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
 
 
 export default NewsList
