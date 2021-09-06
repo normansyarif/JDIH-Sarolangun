@@ -19,7 +19,7 @@ function App() {
                     headerTitle: "JDIH Kabupaten X",
                     headerTitleAlign: "center",
                     headerStyle: {
-                        backgroundColor: "#FF817C",
+                        backgroundColor: "#182533",
                     },
                     headerTintColor: '#fff',
                     headerTitleStyle: {
@@ -27,7 +27,12 @@ function App() {
                     },
                     cardStyle: { backgroundColor: '#fff' }
                 }}>
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen 
+                    options={{ 
+                        headerShown: false
+                    }} 
+                    name="Home" 
+                    component={Home} />
                 <Stack.Screen name="Browser" component={Browser} />
                 <Stack.Screen name="NewsList" component={NewsList} />
             </Stack.Navigator>

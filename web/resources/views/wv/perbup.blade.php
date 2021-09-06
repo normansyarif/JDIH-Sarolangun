@@ -52,6 +52,7 @@ date_default_timezone_set('Asia/Jakarta'); ?>
                         <thead>
                             <tr>
                                 <th>No. Perbup</th>
+                                <th>Tanggal</th>
                                 <th>Tahun</th>
                                 <th>Judul</th>
                                 <th></th>
@@ -61,17 +62,23 @@ date_default_timezone_set('Asia/Jakarta'); ?>
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $item->no }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
                                     <td>{{ $item->year }}</td>
                                     <td>{{ $item->title }}</td>
                                     <td>
                                         <button onclick="
                                 $('#no').html('{{ $item->no }}');
+                                $('#tanggal').html('{{ date('d-m-Y', strtotime($item->tanggal)) }}')
                                 $('#year').html('{{ $item->year }}');
                                 $('#title').html('{{ $item->title }}');
-                                $('#url').val('http:\/\/docs.google.com/gview?embedded=true&url={{ url('files/perbup/' . $item->link) }}');
+                                $('#url').val('ViewerJS/#../files/perbup/{{ $item->link }}');
                                 $('#detailModal').modal('show');
-                                " class="btn btn-sm button-custom">Detail</button>
+                                " class="btn btn-sm btn-primary" style="width: 100px; margin: 3px">Lihat</button>
+
+<a href="files/perbup/{{ $item->link }}?download=true" class="btn btn-sm btn-warning" style="width: 100px; margin: 3px">Download</a>
                                     </td>
+                                
+                                
                                 </tr>
                             @endforeach
                         </tbody>
@@ -94,6 +101,10 @@ date_default_timezone_set('Asia/Jakarta'); ?>
                         <p class="detail-text" id="no"></p>
                     </div>
                     <div class="mb-3">
+                        <label for="">Tanggal</label>
+                        <p class="detail-text" id="tanggal"></p>
+                    </div>
+                    <div class="mb-3">
                         <label for="">Tahun</label>
                         <p class="detail-text" id="year"></p>
                     </div>
@@ -108,7 +119,7 @@ date_default_timezone_set('Asia/Jakarta'); ?>
                                 <a onclick="
                                 $.LoadingOverlay('show');
                                 window.location.href = $('#url').val();
-                                " class="btn button-custom" id="link">Lihat PDF</a>
+                                " class="btn button-custom" id="link">Lihat Dokumen</a>
                             </div>
                         </div>
                     </div>

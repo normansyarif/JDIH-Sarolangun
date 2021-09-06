@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {BackHandler, View, SafeAreaView, ScrollView, StatusBar, ActivityIndicator } from 'react-native'
+import {Text, ImageBackground, BackHandler, View, SafeAreaView, ScrollView, StatusBar, ActivityIndicator } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import values from '../values';
@@ -47,10 +47,13 @@ const NewsList = (props) => {
     }, []);
 
     return (
-        <SafeAreaView >
-            <StatusBar barStyle="light-content" backgroundColor="#FF817C" />
-            <ScrollView>
-                <View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <ImageBackground style={{ flex: 1 }}
+                resizeMode='cover'
+                source={require('./../assets/images/bg.jpg')}>
+                
+                <StatusBar barStyle="light-content" backgroundColor="#182533" />
+                <ScrollView>
                     <View>
 
                         {newsItem.map((item) => {
@@ -65,8 +68,8 @@ const NewsList = (props) => {
                         {loading && <ActivityIndicator style={{ marginTop: 100 }} size="large" color="#50CDFF" />}
 
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </ImageBackground>
         </SafeAreaView>
 
     )

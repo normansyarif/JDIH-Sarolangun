@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { StyleSheet, View, BackHandler, ActivityIndicator, TouchableOpacity, Text } from 'react-native'
+import { Linking, StyleSheet, View, BackHandler, ActivityIndicator, TouchableOpacity, Text } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { WebView } from 'react-native-webview';
@@ -43,16 +43,26 @@ const Browser = (props) => {
                 }}
                 onLoadStart={() => setLoading(false)}
                 style={{ flex: 1 }}
-                javaScriptEnabled
-                domStorageEnabled
-                allowFileAccessFromFileURLs
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                allowFileAccess={true}
+                allowUniversalAccessFromFileURLs={true}
+                allowingReadAccessToURL={true}
                 startInLoadingState
                 originWhitelist={['*']}
-                mixedContentMode="compatibility"
-                source={{ uri: url }} />
+                mixedContentMode={'always'}
+                source={{ uri: url }}
+                onShouldStartLoadWithRequest={event => {
+                    if (event.url.includes('download=true')) {
+                        Linking.openURL(event.url)
+                        return false
+                    }
+                    return true
+                }}
+                />
 
             { loading && (
-                <ActivityIndicator style={styles.loading} size="large" color="#50CDFF" />
+                <ActivityIndicator style={styles.loading} size="large" color="#39C4C1" />
             )}
         </View>
 
