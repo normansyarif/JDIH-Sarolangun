@@ -1,6 +1,6 @@
 const values = {
     routes: {
-        host: "http://wisata.unja.ac.id/aaa",
+        host: "https://server-android.sarolangunkab.go.id",
         news: "/api/news",
         perda: "/perda",
         perbup: "/perbup",

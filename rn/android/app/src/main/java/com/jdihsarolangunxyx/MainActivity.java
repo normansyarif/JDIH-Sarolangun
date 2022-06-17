@@ -1,4 +1,4 @@
-package com.jdih;
+package com.jdihsarolangunxyx;
 
 import android.os.Bundle; // <- add this necessary import
 
